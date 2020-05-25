@@ -1,5 +1,6 @@
 module ModelComparison
 
+using CodecZstd
 using ConjugatePriors
 using ConjugatePriors: NormalKnownMu
 using HDPHMM
@@ -17,7 +18,14 @@ import Distributions: MixtureModel, fit
 import HMMBase: nparams
 
 export FiniteMixtureModel,
-    FiniteHMM, InfiniteMixtureModel, InfiniteHMM, BIC, fit, fit_map, weak_hdp_prior
+    FiniteHMM,
+    InfiniteMixtureModel,
+    InfiniteHMM,
+    BIC,
+    fit,
+    fit_map,
+    parsefile,
+    weak_hdp_prior
 
 const BayesianGaussianMixture = PyNULL()
 const GaussianMixture = PyNULL()
@@ -31,5 +39,6 @@ include("common.jl")
 include("penalty.jl")
 include("mixture.jl")
 include("hmm.jl")
+include("io.jl")
 
 end
