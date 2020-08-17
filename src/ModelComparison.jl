@@ -4,6 +4,7 @@ using CodecZstd
 using ConjugatePriors
 using ConjugatePriors: NormalKnownMu
 using HDPHMM
+using JSON
 using PyCall
 using StatsBase
 
@@ -16,11 +17,13 @@ using Reexport
 
 import Distributions: MixtureModel, fit
 import HMMBase: nparams
+import JSON: parsefile
 
 export FiniteMixtureModel,
     FiniteHMM,
     InfiniteMixtureModel,
     InfiniteHMM,
+    AIC,
     BIC,
     fit,
     fit_map,

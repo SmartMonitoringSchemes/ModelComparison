@@ -2,10 +2,11 @@ import Pkg
 Pkg.activate(@__DIR__)
 
 using Glob
-using ModelComparison
+using HDPHMM # resample_interval
 using JSON
 using Impute
 using Missings
+using ModelComparison
 using ProgressMeter
 using Random
 
@@ -35,19 +36,23 @@ function process(file)
     # so we fill missing data.
     data = fill_missing(data)
 
-    Random.seed!(2020)
-    mm = fit(FiniteMixtureModel{Normal}, data, 1:15, BIC, n_init = 3)
+    # Random.seed!(2020)
+    # mm = fit(FiniteMixtureModel{Normal}, data, 1:15, BIC, n_init = 3)
 
     Random.seed!(2020)
     dpmm = fit(InfiniteMixtureModel{Normal}, data, n_components = 15, n_init = 3)
 
-    Random.seed!(2020)
-    hmm = fit(FiniteHMM{Normal}, data, 1:15, estimator = fit_map)
+    # Random.seed!(2020)
+    # hmm = fit(FiniteHMM{Normal}, data, 1:15, BIC, estimator = ModelComparison.fit_map, robust = true)
 
     Random.seed!(2020)
     hdphmm = fit(InfiniteHMM, data, n_components = 15, iter = 250)
 
-    results = Dict("MM" => mm, "DPMM" => dpmm, "HMM" => hmm, "HDPHMM" => hdphmm)
+    Random.seed!(2020)
+    hdpghmm = fit(InfiniteHMM, data, n_components = 15, LP = 1, iter = 250)
+
+    # results = Dict("data" => data, "MM" => mm, "DPMM" => dpmm, "HMM" => hmm, "HDPHMM" => hdphmm)
+    results = Dict("data" => data, "DPMM" => dpmm, "HDPHMM" => hdphmm, "HDPGHMM" => hdpghmm)
 
     write(output, json(results))
 end
@@ -58,7 +63,7 @@ function main(args)
 
     p = Progress(length(files))
 
-    #     Threads.@threads for file in files
+    # Threads.@threads for file in files
     for file in files
         try
             # Retry once, then catch exception

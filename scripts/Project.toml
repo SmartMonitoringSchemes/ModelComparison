@@ -1,5 +1,6 @@
 [deps]
 Glob = "c27321d9-0574-5035-807b-f59d2c89b15c"
+HDPHMM = "d69f1d75-0f53-4bd4-8114-76337d5140b8"
 Impute = "f7bf1975-0170-51b9-8c5f-a992d46b9575"
 JSON = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"
 Missings = "e1d29d7a-bbdc-5cf2-9ac0-f12de2c33e28"
