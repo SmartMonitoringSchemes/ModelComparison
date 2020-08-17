@@ -1,0 +1,11 @@
+[deps]
+ArgCheck = "dce04be8-c92d-5529-be00-80e4d2c0e197"
+DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
+Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
+Glob = "c27321d9-0574-5035-807b-f59d2c89b15c"
+HDPHMM = "d69f1d75-0f53-4bd4-8114-76337d5140b8"
+ModelComparison = "2a6b1f94-3c8a-425b-bbb4-9b0d60505034"
+ProgressMeter = "92933f4c-e287-5a05-a399-4b506db050ca"
+PyCall = "438e738f-606a-5dbb-bf0a-cddfbfd45ab0"
+PyPlot = "d330b81b-6aea-500a-939a-2ce795aea3ee"
+ThesisTools = "c2d32e4c-7064-491d-a5e3-8549892f5912"
