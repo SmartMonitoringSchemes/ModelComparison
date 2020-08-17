@@ -9,6 +9,9 @@ jobs:
       - uses: julia-actions/setup-julia@latest
         with:
           version: '1.4'
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.6'
       - uses: webfactory/ssh-agent@4fcb25e
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -17,6 +20,16 @@ jobs:
           julia -e 'using Pkg; pkg"registry add General"'
           julia -e 'using Pkg; pkg"registry add https://github.com/JuliaPOMDP/Registry"'
           julia -e 'using Pkg; pkg"registry add git@github.com:SmartMonitoringSchemes/Registry.git"'
+      - name: "Setup dependencies"
+        run: |
+          pip install sklearn
       - name: "Run Julia tests"
         run: |
           julia --project=. --check-bounds=yes -e 'using Pkg; Pkg.test(coverage=true);'
+      - name: "Upload coverage"
+        # Don't fail if the Codecov API times out.
+        continue-on-error: true
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        run: |
+          julia -e "using Pkg; Pkg.add(\"Coverage\"); using Coverage; Codecov.submit(Codecov.process_folder())"
