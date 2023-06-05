@@ -15,7 +15,7 @@ jobs:
           julia -e 'using Pkg; pkg"registry add https://github.com/JuliaPOMDP/Registry"'
           julia -e 'using Pkg; pkg"registry add https://github.com/SmartMonitoringSchemes/Registry"'
       - name: Setup dependencies
-        run: pip install sklearn
+        run: pip install scikit-learn
       - name: Run tests
         run: julia --project=. --check-bounds=yes -e 'using Pkg; Pkg.test(coverage=true);'
       - name: Upload coverage
